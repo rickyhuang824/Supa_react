@@ -1,12 +1,17 @@
-import { TextField, Button, Typography, Paper, Box } from '@material-ui/core';
+import { Button, Typography, Paper, Box } from '@material-ui/core';
+import { useHistory } from 'react-router';
+import {useAuth} from '../contexts/Auth';
 
 export const Dashboard = () => {
 	
-	const handleSignOut = () => {
+    const { user, signOut } = useAuth();
+    const history = useHistory();
 
+	const handleSignOut = async () => {
+        await signOut();
+
+        history.push('/login')
 	}
-
-	
 
 	return (
 		<Paper>

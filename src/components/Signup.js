@@ -1,16 +1,25 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { TextField, Button, Paper, Box } from '@material-ui/core';
+import { useAuth } from '../contexts/Auth';
 
 
 export const Signup = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const handleSubmit = (e) => {
+	const { signUp } = useAuth();
+	const history = useHistory();
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();	
-		//sign up logic
-		console.log([email, password])
+		const { error } = await signUp({email, password})
+
+		if (error) {
+			alert('error signing in');
+		} else {
+			history.push('/');
+		}
 	}
 	
 	return (
@@ -32,7 +41,7 @@ export const Signup = () => {
 								name = 'password'
 								variant='outlined'
 								label = 'Password'
-								value={email}
+								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</Box>

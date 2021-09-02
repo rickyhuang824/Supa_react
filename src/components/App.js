@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Container, Typography } from '@material-ui/core';
 import { AuthProvider } from "../contexts/Auth";
+import { PrivateRoute } from "./PrivateRoute";
 
 
 import { Signup } from "./Signup";
@@ -15,7 +16,7 @@ export const App = () => {
         <Router>
           <AuthProvider>
             <Switch>
-              <Route exact path='/' component={Dashboard}/>
+              <PrivateRoute exact path='/' component={Dashboard}/>
               <Route path='/signup' component={Signup}/>
               <Route path='/login' component={Login}/>
             </Switch>

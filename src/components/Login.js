@@ -1,6 +1,7 @@
 import {useState} from "react"
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { TextField, Button, Paper, Box } from '@material-ui/core';
+import { useAuth } from '../contexts/Auth';
 
 
 export const Login = () => {
@@ -8,8 +9,18 @@ export const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const handleSubmit = (e) => {
+	const { signIn } = useAuth();
+	const history = useHistory();
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();	
+		const { error } = await signIn({email, password})
+
+		if (error) {
+			alert('error signing in');
+		} else {
+			history.push('/');
+		}
 	}
 	
 	return (
@@ -31,7 +42,7 @@ export const Login = () => {
 								name = 'password'
 								variant='outlined'
 								label = 'Password'
-								value={email}
+								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</Box>
