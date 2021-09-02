@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { TextField, Button, Paper, Box } from '@material-ui/core';
+
 
 export const Signup = () => {
 	const [email, setEmail] = useState('');
@@ -11,16 +14,37 @@ export const Signup = () => {
 	}
 	
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
-				<label htmlFor="input-email" name="email">Email</label>
-				<input type='email' id="input-email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-
-				<label htmlFor="input-password" name="password">Password</label>
-				<input type='password' id="input-password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-				<br />
-				<button type="submit">Submit</button>
-			</form>
-		</div>
+		<Paper>
+			<Box mt={5} display="flex" flexDirection="column" alignItems="center">
+				<form onSubmit={handleSubmit}>
+					<Box display="flex" flexDirection="column" width='fit-content' mt={5}>
+						<Box m={1}>
+						<TextField
+							name='email'
+							variant='outlined'
+							label='Email'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+						</Box>
+						<Box m={1}>
+							<TextField
+								name = 'password'
+								variant='outlined'
+								label = 'Password'
+								value={email}
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+						</Box>
+						<Button variant='contained' color='primary' size="small" type="submit">Submit</Button>
+					</Box>
+				</form>
+				< Box mt={2}>
+					<Box>
+						Already have an account? <Link to="/login">Log In</Link>
+					</Box>
+				</Box>
+			</Box>
+		</Paper>
 	);
 }
